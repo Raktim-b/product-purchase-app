@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-360 mx-auto px-6 py-12">
+
+    <!-- Back Button -->
+    <a
+        href="/userPage"
+        class="inline-flex! mb-5 items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-3 rounded-lg transition"
+    >
+        ← Back to Products
+    </a>
+
+    <!-- Product Card -->
+    <div class="">
+
+        <div class="grid lg:grid-cols-2 gap-40 ">
+
+            <!-- LEFT -->
+            <div>
+
+                <div class="rounded-xl overflow-hidden border border-gray-200">
+
+                    <img
+                        src="<%= product.image %>"
+                        alt="<%= product.name %>"
+                        class="w-full h-137.5 object-cover"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="flex flex-col justify-center">
+
+                <!-- Category -->
+                <span
+                    class="inline-block w-fit px-4 py-1 rounded-full bg-yellow-300 text-gray-800 text-sm font-semibold"
+                >
+                    <%= product.category.name %>
+                </span>
+
+                <!-- Name -->
+                <h1 class="text-4xl font-bold text-gray-900 mt-5">
+                    <%= product.name %>
+                </h1>
+
+                <!-- Price -->
+                <h2 class="text-3xl font-bold text-green-600 mt-6">
+                    ₹<%= product.price.toLocaleString() %>
+                </h2>
+
+                <!-- Stock -->
+                <div class="mt-5">
+
+                    <% if(product.stock > 0){ %>
+
+                        <span class="text-green-600 font-semibold">
+                            In Stock
+                        </span>
+
+                        <span class="text-gray-600 ml-2">
+                            (<%= product.stock %> Available)
+                        </span>
+
+                    <% }else{ %>
+
+                        <span class="text-red-600 font-semibold">
+                            Out of Stock
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+                <!-- Description -->
+                <div class="mt-8">
+
+                    <h3 class="font-semibold text-lg mb-2">
+                        Description
+                    </h3>
+
+                    <p class="text-gray-600 leading-7">
+                        <%= product.desc %>
+                    </p>
+
+                </div>
+
+                <!-- Purchase Form -->
+                <% if(product.stock > 0){ %>
+
+                <form
+                    action="/userPage/purchase/<%= product._id %>"
+                    method="POST"
+                    class="mt-10"
+                >
+
+                    <label
+                        class="block mb-3 font-semibold text-gray-700"
+                    >
+                        Select Quantity
+                    </label>
+
+                    <select
+                        name="quantity"
+                        class="border border-gray-300 rounded-lg px-4 py-3 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+
+                        <% for(let i = 1; i <= product.stock; i++){ %>
+
+                            <option value="<%= i %>">
+                                <%= i %>
+                            </option>
+
+                        <% } %>
+
+                    </select>
+
+                    <button
+                        type="submit"
+                        class="block mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
+                    >
+                        Buy Now
+                    </button>
+
+                </form>
+
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<% if (success) { %>
+
+<div
+    id="toast"
+    class="fixed top-5 right-5 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg transition-all duration-500"
+>
+    <%= success %>
+</div>
+
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById("toast");
+        if (toast) {
+            toast.classList.add("opacity-0", "translate-x-10");
+
+            setTimeout(() => {
+                toast.remove();
+            }, 500);
+        }
+    }, 3000);
+</script>
+
+<% } %>
+</body>
+</html>

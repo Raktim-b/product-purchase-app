@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/output.css" />
+    <title><%= title %></title>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen text-sm font-sans">
+    <div class="max-w-2xl w-full mx-auto px-6 py-10">
+      <!-- HEADER -->
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-medium text-gray-900">Edit Product</h1>
+          <p class="text-sm text-gray-500 mt-1">Update product details</p>
+        </div>
+
+        <a
+          href="/products"
+          class="inline-flex! items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-3 rounded-lg transition"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+          Back
+        </a>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="bg-white border border-gray-100 rounded-xl p-6 max-w-full">
+        <h2 class="font-medium text-gray-900 mb-6">Product Details</h2>
+
+        <form
+          action="/products/update/<%= data._id %>"
+          method="POST"
+          enctype="multipart/form-data"
+          class="space-y-5"
+        >
+          <!-- PRODUCT NAME -->
+          <div>
+            <label class="text-sm text-gray-500">Product Name</label>
+
+            <input
+              name="name"
+              type="text"
+              value="<%= data.name %>"
+              required
+              class="w-full border border-gray-200 rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+          </div>
+
+          <!-- PRICE + CATEGORY -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-gray-500">Price</label>
+
+              <input
+                name="price"
+                type="number"
+                value="<%= data.price %>"
+                class="w-full border border-gray-200 rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+
+            <div>
+  <label class="text-sm text-gray-500">Category</label>
+
+  <select
+    name="category"
+    required
+    class="w-full border border-gray-200 rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
+  >
+    <option value="">Select Category</option>
+
+    <% categories.forEach(category => { %>
+      <option value="<%= category._id %>">
+        <%= category.name %>
+      </option>
+    <% }) %>
+  </select>
+</div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 ">
+            
+
+            <div>
+              <label class="text-sm text-gray-500">Stock</label>
+
+              <input
+                name="stock"
+                type="number"
+                value="<%= data.stock %>"
+                placeholder="stock"
+                class="w-full border border-gray-200 rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+            <div>
+            <label class="text-sm text-gray-500 ">Image</label>
+            <img
+              src="<%= data.image %>"
+              class="w-30 h-30 object-cover  rounded-md my-2 border border-gray-200"
+            />
+            <input
+              name="image"
+              type="file"
+              class="w-full border text-gray-500! border-gray-200 rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+          </div>
+          </div>
+
+          <!-- BUTTON -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium transition"
+            >
+              Update
+            </button>
+          </div>
+
+         
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script/updateScript.js"></script>
+  </body>
+</html>

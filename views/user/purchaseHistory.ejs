@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <h1 class="text-3xl font-bold">
+            Purchase History
+        </h1>
+
+        <a
+            href="/userPage"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
+        >
+            Back
+        </a>
+
+    </div>
+
+    <% if(purchases.length === 0){ %>
+
+        <div class="bg-white rounded-xl shadow p-10 text-center">
+
+            <h2 class="text-2xl font-semibold">
+                No Purchases Found
+            </h2>
+
+        </div>
+
+    <% } else { %>
+
+    <div class="space-y-6">
+
+        <% purchases.forEach((item)=>{ %>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+
+            <div class="grid md:grid-cols-5 gap-6 items-center">
+
+                <!-- Image -->
+                <div>
+
+                    <img
+                        src="<%= item.product.image %>"
+                        class="w-32 h-32 object-cover rounded-lg border"
+                    >
+
+                </div>
+
+                <!-- Product -->
+                <div>
+
+                    <h2 class="text-xl font-bold">
+                        <%= item.product.name %>
+                    </h2>
+
+                    <span class="inline-block mt-2 bg-yellow-300 px-3 py-1 rounded-full text-sm">
+                        <%= item.category %>
+                    </span>
+
+                </div>
+
+                <!-- Quantity -->
+                <div>
+
+                    <p class="text-gray-500">
+                        Quantity
+                    </p>
+
+                    <p class="font-semibold text-lg">
+                        <%= item.quantity %>
+                    </p>
+
+                </div>
+
+                <!-- Price -->
+                <div>
+
+                    <p class="text-gray-500">
+                        Total Price
+                    </p>
+
+                    <p class="font-bold text-green-600 text-xl">
+                        ₹<%= item.totalPrice.toLocaleString() %>
+                    </p>
+
+                </div>
+
+                <!-- Date -->
+                <div>
+
+                    <p class="text-gray-500">
+                        Purchased On
+                    </p>
+
+                    <p class="font-medium">
+                        <%= new Date(item.createdAt).toLocaleDateString("en-IN") %>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    </div>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>
